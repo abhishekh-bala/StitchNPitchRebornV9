@@ -1423,7 +1423,7 @@ function App() {
   return (
     <div className={`min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 relative overflow-hidden ${isMobile ? 'mobile-layout' : ''}`}>
       {/* Dynamic Orbs Background */}
-      <DynamicOrbs />
+      {!showWinnerDisplay && !showFailAnimation && <DynamicOrbs />}
 
       {/* Navigation */}
       <Navigation
