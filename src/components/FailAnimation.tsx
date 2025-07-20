@@ -73,32 +73,31 @@ const FailAnimation: React.FC<FailAnimationProps> = ({ isActive, guideName, onCl
           }
           
           .fail-shake {
-            animation: fail-shake 0.8s ease-in-out infinite;
+            animation: fail-shake 0.5s ease-in-out infinite;
           }
           
           @keyframes fail-shake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px) rotate(-2deg); }
-            75% { transform: translateX(8px) rotate(2deg); }
+            25% { transform: translateX(-5px) rotate(-1deg); }
+            75% { transform: translateX(5px) rotate(1deg); }
           }
           
           .fail-float {
-            animation: fail-float 2s ease-in-out infinite;
+            animation: fail-float 1.5s ease-in-out infinite;
           }
           
           @keyframes fail-float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(5deg); }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
           }
           
           .fail-emoji {
-            animation: fail-emoji-spin 2s linear infinite;
+            animation: fail-emoji-spin 1s linear infinite;
           }
           
           @keyframes fail-emoji-spin {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.1); }
-            100% { transform: rotate(360deg) scale(1); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
           }
         `}
       </style>

@@ -5,37 +5,49 @@ interface ConfettiAnimationProps {
 }
 
 const ConfettiAnimation: React.FC<ConfettiAnimationProps> = ({ isActive }) => {
-  const [confettiPieces, setConfettiPieces] = useState<JSX.Element[]>([]);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     if (isActive) {
-      // Generate confetti pieces when animation becomes active
-      const pieces = Array.from({ length: 50 }, (_, i) => (
-        <div
-          key={`confetti-${i}-${Date.now()}`}
-          className={`confetti-piece confetti-piece-${i % 6}`}
-          style={{
-            left: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 3}s`,
-            animationDuration: `${3 + Math.random() * 2}s`,
-            transform: `rotate(${Math.random() * 360}deg)`
-          }}
-        />
-      ));
-      setConfettiPieces(pieces);
-
-      // Clear confetti after animation completes
+      setShowConfetti(true);
+      // Auto-hide after 6 seconds
       const timeout = setTimeout(() => {
-        setConfettiPieces([]);
-      }, 8000);
-
+        setShowConfetti(false);
+      }, 6000);
       return () => clearTimeout(timeout);
     } else {
-      setConfettiPieces([]);
+      setShowConfetti(false);
     }
   }, [isActive]);
 
-  if (!isActive && confettiPieces.length === 0) return null;
+  if (!showConfetti) return null;
+
+  // Generate confetti pieces
+  const confettiPieces = Array.from({ length: 50 }, (_, i) => {
+    const colors = ['#f97316', '#10b981', '#ec4899', '#3b82f6', '#f59e0b', '#8b5cf6'];
+    const shapes = ['circle', 'square'];
+    const color = colors[i % colors.length];
+    const shape = shapes[i % shapes.length];
+    const left = Math.random() * 100;
+    const delay = Math.random() * 3;
+    const duration = 3 + Math.random() * 2;
+    const rotation = Math.random() * 360;
+
+    return (
+      <div
+        key={i}
+        className="confetti-piece"
+        style={{
+          left: `${left}%`,
+          backgroundColor: color,
+          animationDelay: `${delay}s`,
+          animationDuration: `${duration}s`,
+          borderRadius: shape === 'circle' ? '50%' : '2px',
+          transform: `rotate(${rotation}deg)`
+        }}
+      />
+    );
+  });
 
   return (
     <>
@@ -43,65 +55,23 @@ const ConfettiAnimation: React.FC<ConfettiAnimationProps> = ({ isActive }) => {
         {`
           .confetti-piece {
             position: fixed;
-            width: 10px;
-            height: 10px;
-            top: -20px;
+            width: 8px;
+            height: 8px;
+            top: -10px;
             z-index: 1000;
-            animation: confetti-fall linear forwards;
             pointer-events: none;
-          }
-          
-          .confetti-piece-0 { 
-            background: #f97316; 
-            border-radius: 2px;
-          }
-          .confetti-piece-1 { 
-            background: #10b981; 
-            border-radius: 50%;
-          }
-          .confetti-piece-2 { 
-            background: #ec4899; 
-            border-radius: 2px;
-            transform: rotate(45deg);
-          }
-          .confetti-piece-3 { 
-            background: #3b82f6; 
-            border-radius: 50%;
-          }
-          .confetti-piece-4 { 
-            background: #f59e0b; 
-            border-radius: 2px;
-          }
-          .confetti-piece-5 { 
-            background: #8b5cf6; 
-            border-radius: 50%;
+            animation: confetti-fall linear forwards;
           }
           
           @keyframes confetti-fall {
             0% {
-              transform: translateY(-20px) rotate(0deg) scale(1);
-              opacity: 1;
-            }
-            10% {
-              opacity: 1;
-            }
-            90% {
+              transform: translateY(-10px) rotate(0deg);
               opacity: 1;
             }
             100% {
-              transform: translateY(calc(100vh + 20px)) rotate(720deg) scale(0.5);
+              transform: translateY(calc(100vh + 10px)) rotate(720deg);
               opacity: 0;
             }
-          }
-          
-          .bounce-in {
-            animation: bounce-in 0.6s ease-out;
-          }
-          
-          @keyframes bounce-in {
-            0% { transform: scale(0) rotate(-180deg); opacity: 0; }
-            50% { transform: scale(1.2) rotate(-90deg); opacity: 1; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
           }
         `}
       </style>
