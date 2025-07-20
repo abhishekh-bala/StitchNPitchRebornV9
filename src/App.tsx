@@ -1516,15 +1516,17 @@ function App() {
       />
 
       {/* Confetti Animation */}
-      <ConfettiAnimation isActive={showConfetti} />
+      {showConfetti && <ConfettiAnimation isActive={showConfetti} />}
 
       {/* Fail Animation */}
       <FailAnimation 
-        isActive={showFailAnimation} 
-        guideName={failedGuideName}
-        onClose={handleCloseFail}
-        isElite={false}
-      />
+      {showFailAnimation && (
+        <FailAnimation 
+          isActive={showFailAnimation} 
+          guideName={failedGuideName}
+          onClose={handleCloseFail}
+        />
+      )}
     </div>
   );
 }

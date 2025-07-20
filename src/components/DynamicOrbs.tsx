@@ -1,26 +1,20 @@
 import React from 'react';
 
 const DynamicOrbs: React.FC = () => {
-  // Generate multiple orbs with different sizes, colors, and animation delays
-  const orbs = Array.from({ length: 12 }, (_, i) => ({
+  // Reduced number of orbs from 12 to 6
+  const orbs = Array.from({ length: 6 }, (_, i) => ({
     id: i,
-    size: Math.random() * 120 + 60, // 60-180px
+    size: Math.random() * 80 + 40, // 40-120px (reduced from 60-180px)
     color: [
       'from-purple-400 to-indigo-600',
       'from-pink-400 to-purple-600',
       'from-indigo-400 to-purple-600',
       'from-violet-400 to-purple-600',
       'from-fuchsia-400 to-pink-600',
-      'from-purple-500 to-indigo-600',
-      'from-pink-500 to-purple-600',
-      'from-indigo-500 to-purple-600',
-      'from-blue-400 to-indigo-600',
-      'from-cyan-400 to-blue-600',
-      'from-teal-400 to-cyan-600',
-      'from-emerald-400 to-teal-600'
-    ][i % 12],
-    duration: Math.random() * 25 + 20, // 20-45s
-    delay: Math.random() * 15, // 0-15s delay
+      'from-blue-400 to-indigo-600'
+    ][i % 6],
+    duration: Math.random() * 20 + 15, // 15-35s (reduced from 20-45s)
+    delay: Math.random() * 10, // 0-10s delay (reduced from 0-15s)
     startX: Math.random() * 100,
     startY: Math.random() * 100,
     direction: Math.random() > 0.5 ? 1 : -1 // Random direction
@@ -33,55 +27,55 @@ const DynamicOrbs: React.FC = () => {
           @keyframes float-around {
             0% { 
               transform: translate(0, 0) rotate(0deg) scale(1); 
-              opacity: 0.3;
+              opacity: 0.2;
             }
             25% { 
-              transform: translate(300px, -200px) rotate(90deg) scale(1.2); 
-              opacity: 0.6;
-            }
-            50% { 
-              transform: translate(-150px, -400px) rotate(180deg) scale(0.8); 
+              transform: translate(200px, -150px) rotate(90deg) scale(1.1); 
               opacity: 0.4;
             }
+            50% { 
+              transform: translate(-100px, -300px) rotate(180deg) scale(0.9); 
+              opacity: 0.3;
+            }
             75% { 
-              transform: translate(-350px, -150px) rotate(270deg) scale(1.1); 
-              opacity: 0.7;
+              transform: translate(-250px, -100px) rotate(270deg) scale(1.05); 
+              opacity: 0.5;
             }
             100% { 
               transform: translate(0, 0) rotate(360deg) scale(1); 
-              opacity: 0.3;
+              opacity: 0.2;
             }
           }
           
           @keyframes float-around-reverse {
             0% { 
               transform: translate(0, 0) rotate(0deg) scale(1); 
-              opacity: 0.3;
+              opacity: 0.2;
             }
             25% { 
-              transform: translate(-300px, -200px) rotate(-90deg) scale(1.2); 
-              opacity: 0.6;
-            }
-            50% { 
-              transform: translate(150px, -400px) rotate(-180deg) scale(0.8); 
+              transform: translate(-200px, -150px) rotate(-90deg) scale(1.1); 
               opacity: 0.4;
             }
+            50% { 
+              transform: translate(100px, -300px) rotate(-180deg) scale(0.9); 
+              opacity: 0.3;
+            }
             75% { 
-              transform: translate(350px, -150px) rotate(-270deg) scale(1.1); 
-              opacity: 0.7;
+              transform: translate(250px, -100px) rotate(-270deg) scale(1.05); 
+              opacity: 0.5;
             }
             100% { 
               transform: translate(0, 0) rotate(-360deg) scale(1); 
-              opacity: 0.3;
+              opacity: 0.2;
             }
           }
           
           @keyframes pulse-glow {
             0%, 100% { 
-              filter: blur(25px) brightness(1); 
+              filter: blur(15px) brightness(1); 
             }
             50% { 
-              filter: blur(35px) brightness(1.3); 
+              filter: blur(25px) brightness(1.2); 
             }
           }
           
@@ -91,6 +85,7 @@ const DynamicOrbs: React.FC = () => {
             pointer-events: none;
             z-index: 0;
             will-change: transform, opacity;
+            animation-fill-mode: both;
           }
           
           .floating-orb-normal {
@@ -112,8 +107,8 @@ const DynamicOrbs: React.FC = () => {
               height: `${orb.size}px`,
               left: `${orb.startX}%`,
               top: `${orb.startY}%`,
-              animationDuration: `${orb.duration}s, ${orb.duration * 0.6}s`,
-              animationDelay: `${orb.delay}s, ${orb.delay * 0.5}s`
+              animationDuration: `${orb.duration}s, ${orb.duration * 0.8}s`,
+              animationDelay: `${orb.delay}s, ${orb.delay * 0.3}s`
             }}
           />
         ))}
